@@ -23,7 +23,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       if: ${{ success() }}
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore verbosity normal
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal 
   
 
     
