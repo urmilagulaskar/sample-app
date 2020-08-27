@@ -1,3 +1,3 @@
 Test 1
 
-changes done to verify merge conflicts
+Changes done to verify merge conflicts
