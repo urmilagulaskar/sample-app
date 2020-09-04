@@ -103,8 +103,10 @@
               "version": "[1.2.0, )"
             },
             "coverlet.msbuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[*, )"
+              "version": "[2.9.0, )"
             },
             "moq": {
               "target": "Package",
