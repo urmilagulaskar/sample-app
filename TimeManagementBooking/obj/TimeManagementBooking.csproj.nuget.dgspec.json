@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj": {}
+    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj": {}
   },
   "projects": {
-    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj": {
+    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj",
+        "projectUniqueName": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj",
         "projectName": "TimeManagementBooking",
-        "projectPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj",
+        "projectPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj",
         "packagesPath": "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\",
-        "outputPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\obj\\",
+        "outputPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Urmila_gulaskar\\AppData\\Roaming\\NuGet\\NuGet.Config",

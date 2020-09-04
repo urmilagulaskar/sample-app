@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aARXykS2lR7gBJ4BQD2kA7brGinvePq26c/97UO+0HkqwXtunOf6pnGjmgnhFoZkVQgux+kI8khbOBUrHeGl5Q==",
+  "dgSpecHash": "Ufzqhe1PDz3zl2ck2wPrFdqt3S9/MFc07KJIRU0v7OFYdegy9iF9HMqNYgAyRWamvrTQJUrrQBnfet6J/NtWSQ==",
   "success": true,
-  "projectFilePath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj",
+  "projectFilePath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

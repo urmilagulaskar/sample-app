@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementUT\\TimeManagementUT.csproj": {}
+    "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementUT\\TimeManagementUT.csproj": {}
   },
   "projects": {
-    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj": {
+    "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj",
+        "projectUniqueName": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj",
         "projectName": "TimeManagementBooking",
-        "projectPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj",
+        "projectPath": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj",
         "packagesPath": "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\",
-        "outputPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\obj\\",
+        "outputPath": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Urmila_gulaskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -56,14 +56,14 @@
         }
       }
     },
-    "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementUT\\TimeManagementUT.csproj": {
+    "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementUT\\TimeManagementUT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementUT\\TimeManagementUT.csproj",
+        "projectUniqueName": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementUT\\TimeManagementUT.csproj",
         "projectName": "TimeManagementUT",
-        "projectPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementUT\\TimeManagementUT.csproj",
+        "projectPath": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementUT\\TimeManagementUT.csproj",
         "packagesPath": "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\",
-        "outputPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementUT\\obj\\",
+        "outputPath": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementUT\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Urmila_gulaskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -79,8 +79,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj": {
-                "projectPath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementBooking\\TimeManagementBooking.csproj"
+              "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj": {
+                "projectPath": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementBooking\\TimeManagementBooking.csproj"
               }
             }
           }
@@ -101,6 +101,10 @@
             "coverlet.collector": {
               "target": "Package",
               "version": "[1.2.0, )"
+            },
+            "coverlet.msbuild": {
+              "target": "Package",
+              "version": "[*, )"
             },
             "moq": {
               "target": "Package",

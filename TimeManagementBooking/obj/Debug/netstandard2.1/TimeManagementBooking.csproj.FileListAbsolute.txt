@@ -25,3 +25,12 @@ d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app-for-poc\TimeManagementBooking\
 d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app-for-poc\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.csproj.CoreCompileInputs.cache
 d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app-for-poc\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.dll
 d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app-for-poc\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.pdb
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\bin\Debug\netstandard2.1\TimeManagementBooking.deps.json
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\bin\Debug\netstandard2.1\TimeManagementBooking.dll
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\bin\Debug\netstandard2.1\TimeManagementBooking.pdb
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.csprojAssemblyReference.cache
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.AssemblyInfoInputs.cache
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.AssemblyInfo.cs
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.csproj.CoreCompileInputs.cache
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.dll
+d:\BeyondTrust\DevopsTask\POC-app-cicd\sample-app\sample-app\TimeManagementBooking\obj\Debug\netstandard2.1\TimeManagementBooking.pdb
