@@ -1,6 +1,5 @@
 name: Application CI
-env: 
-  CONTAINER_IMAGE: sample-app
+
 on:
   push:
     branches: [ develop, master ]
@@ -52,14 +51,16 @@ jobs:
   publish_docker_image:
     needs: [build_and_test]
     if: github.event_name == 'push' 
+    env:
+      CONTAINER_IMAGE: sample-app-${GITHUB_BASE_REF}:${GITHUB_SHA::8}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build docker image for develop
-        if: github.ref == 'refs/heads/develop'
+#         if: github.ref == 'refs/heads/develop'
         run: |
-          docker build . --file Dockerfile --tag sample-app-develop:${GITHUB_SHA::8} 
-      - name: Build docker image for master
-        if: github.ref == 'refs/heads/master'
-        run: |
-          docker build . --file Dockerfile --tag sample-app-master:${GITHUB_SHA::8} 
+          docker build . --file Dockerfile --tag $CONTAINER_IMAGE 
+#       - name: Build docker image for master
+#         if: github.ref == 'refs/heads/master'
+#         run: |
+#           docker build . --file Dockerfile --tag $CONTAINER_IMAGE 
