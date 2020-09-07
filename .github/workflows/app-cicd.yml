@@ -24,8 +24,6 @@ jobs:
 #     - name: Add dotnet package
 #       if: ${{ success() }}
 #       run: |
-#         pwd
-#         ls
 #         find ./ -name *UT.csproj -execdir dotnet add package coverlet.msbuild \;
 #         find ./ -name *UT.csproj -execdir dotnet add package FluentAssertions \;
     - name: Test
@@ -51,6 +49,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
+    needs: [build_and_test]
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
