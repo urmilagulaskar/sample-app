@@ -1,10 +1,10 @@
 name: Application CI
 
 on:
-#   push:
-#     branches: [ sonar_integration, develop, master ]
+  push:
+    branches: [ develop, master ]
   pull_request:
-    branches: [ develop ]
+    branches: [ develop, master ]
 
 
 jobs:
@@ -49,6 +49,15 @@ jobs:
         dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  publish_docker_image:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker image
+        run: |
+          echo 'build image'
 
 
     
