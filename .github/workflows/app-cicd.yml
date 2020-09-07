@@ -55,14 +55,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build docker image for develop
+      - name: Set docker image tag for develop
         if: github.ref == 'refs/heads/develop'
         run: |
-          echo 'build image for develop'
-      - name: Build docker image for master
+          docker build . --file Dockerfile --tag $CONTAINER_IMAGE
+        env:
+          CONTAINER_IMAGE: sample-app-develop:${{ github.ShortSha }}
+      - name: Set docker image tag for master
         if: github.ref == 'refs/heads/master'
         run: |
-          echo 'build image for master'
+          docker build . --file Dockerfile --tag $CONTAINER_IMAGE
+        env:
+          CONTAINER_IMAGE: sample-app-master:${{ github.ShortSha }}
 
 
 
