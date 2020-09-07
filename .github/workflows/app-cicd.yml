@@ -62,6 +62,7 @@ jobs:
           echo ${GITHUB_BASE_REF}
           echo 'middle line'
           echo ${GITHUB_REF##*/}
+          echo $CONTAINER_IMAGE
           docker build . --file Dockerfile --tag $CONTAINER_IMAGE 
 #       - name: Build docker image for master
 #         if: github.ref == 'refs/heads/master'
