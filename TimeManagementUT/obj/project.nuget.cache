@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "TgCslvL0qKiWi7NAewi6Y+iFwP90uLLnROHTlYPrPPnYN/sv+0EXS9D3M4KoGXiSSQgnVrVNUpGJGs92x5gJWA==",
+  "dgSpecHash": "NWeNcSF457pN3sLWf8N9SlHa4dL5VT/Rc9wWhMphyIFHi7wbO+xhv2RRo5xl/o/66k6g2Yz6waYFza0vT0WQUA==",
   "success": true,
-  "projectFilePath": "d:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app-for-poc\\TimeManagementUT\\TimeManagementUT.csproj",
+  "projectFilePath": "D:\\BeyondTrust\\DevopsTask\\POC-app-cicd\\sample-app\\sample-app\\TimeManagementUT\\TimeManagementUT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
     "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
+    "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\coverlet.msbuild\\2.9.0\\coverlet.msbuild.2.9.0.nupkg.sha512",
     "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
     "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\Urmila_gulaskar\\.nuget\\packages\\microsoft.net.test.sdk\\16.5.0\\microsoft.net.test.sdk.16.5.0.nupkg.sha512",
