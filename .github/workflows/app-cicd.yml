@@ -9,7 +9,7 @@ on:
 
 jobs:
   build_and_test:
-    if: ${{ github.event_name == "pull_request" }}
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
 
     steps:
