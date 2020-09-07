@@ -1,5 +1,6 @@
 name: Application CI
-
+env: 
+  CONTAINER_IMAGE: sample-app
 on:
   push:
     branches: [ develop, master ]
@@ -24,8 +25,6 @@ jobs:
 #     - name: Add dotnet package
 #       if: ${{ success() }}
 #       run: |
-#         pwd
-#         ls
 #         find ./ -name *UT.csproj -execdir dotnet add package coverlet.msbuild \;
 #         find ./ -name *UT.csproj -execdir dotnet add package FluentAssertions \;
     - name: Test
@@ -51,13 +50,20 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    needs: [build_and_test]
+    if: github.event_name == 'push' 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build docker image
+      - name: Build docker image for develop
+        if: github.ref == 'refs/heads/develop'
         run: |
-          echo 'build image'
+          echo 'build image for develop'
+      - name: Build docker image for master
+        if: github.ref == 'refs/heads/master'
+        run: |
+          echo 'build image for master'
+
 
 
     
