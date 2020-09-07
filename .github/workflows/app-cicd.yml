@@ -58,8 +58,8 @@ jobs:
       - name: Build docker image for develop
         if: github.ref == 'refs/heads/develop'
         run: |
-          docker build . --file Dockerfile --tag sample-app-develop:${{ github.ShortSha }}
+          docker build . --file Dockerfile --tag sample-app-develop:${GITHUB_SHA::8} 
       - name: Build docker image for master
         if: github.ref == 'refs/heads/master'
         run: |
-          docker build . --file Dockerfile --tag sample-app-master:${{ github.ShortSha }}
+          docker build . --file Dockerfile --tag sample-app-master:${GITHUB_SHA::8} 
