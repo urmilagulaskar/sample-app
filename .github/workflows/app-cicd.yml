@@ -52,7 +52,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_dockerimage:
-    if: ${{ github.event_name == "push" }}
+    if: github.event_name == 'push'  
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
