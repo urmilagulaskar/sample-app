@@ -9,7 +9,6 @@ on:
 
 jobs:
   build_and_test:
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
     runs-on: ubuntu-latest
 
     steps:
@@ -51,8 +50,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
-  publish_dockerimage:
-    if: github.event_name == 'push'  
+  publish_docker_image:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
