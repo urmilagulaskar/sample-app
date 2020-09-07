@@ -49,7 +49,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
-    needs: [build_and_test]
+#     needs: [build_and_test]
     if: github.event_name == 'push' 
     env:
       CONTAINER_IMAGE: sample-app-${GITHUB_BASE_REF}:${GITHUB_SHA::8}
