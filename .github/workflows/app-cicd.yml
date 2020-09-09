@@ -49,17 +49,12 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
-#     needs: [build_and_test]
-    if: github.event_name == 'push' 
+#    if: github.event_name == 'push' 
     runs-on: ubuntu-latest
+    env:
+      $CONTAINER_IMAGE: sample-app-${github_ref##*/}:${github_sha::8}
     steps:
       - uses: actions/checkout@v2
       - name: Build docker image for develop
-#         if: github.ref == 'refs/heads/develop'
         run: |
-          docker build . --file ./scripts/build/Dockerfile --tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
-
-#       - name: Build docker image for master
-#         if: github.ref == 'refs/heads/master'
-#         run: |
-#           docker build . --file Dockerfile --tag $CONTAINER_IMAGE 
+          docker build . --file ./scripts/build/Dockerfile --tag CONTAINER_IMAGE
