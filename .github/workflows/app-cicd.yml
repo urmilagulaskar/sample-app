@@ -49,17 +49,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
-#     needs: [build_and_test]
     if: github.event_name == 'push' 
     runs-on: ubuntu-latest
+    env:
+      $CONTAINER_IMAGE: sample-app-${github_ref##*/}:${github_sha::8}
     steps:
       - uses: actions/checkout@v2
       - name: Build docker image for develop
-#         if: github.ref == 'refs/heads/develop'
         run: |
-          docker build . --file ./scripts/build/Dockerfile --tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
-
-#       - name: Build docker image for master
-#         if: github.ref == 'refs/heads/master'
-#         run: |
-#           docker build . --file Dockerfile --tag $CONTAINER_IMAGE 
+          docker build . --file ./scripts/build/Dockerfile -t sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+          docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} urmilag.jfrog.io/docker-local/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+      - uses: jfrog/setup-jfrog-cli@v1
+      - run: |
+          jfrog rt c artifactory --url=https://urmilag.jfrog.io/artifactory --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=false
+          jfrog rt dp urmilag.jfrog.io/docker-local/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} docker-local 
