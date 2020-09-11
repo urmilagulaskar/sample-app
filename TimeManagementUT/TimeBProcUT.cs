@@ -16,13 +16,6 @@ namespace TimeManagementUT
             Assert.Throws<ArgumentOutOfRangeException>(() => timeBProc.BookTime(new Employee(),DateTime.Today,8));
         }
         
-        [Fact]
-        public void InvalidateEmpId()
-        {
-            //var bookingProcessor = new Mock<IBookingProcessor>();
-            var timeBProc= new TimeBProcessor();
-            Assert.Throws<ArgumentOutOfRangeException>(() => timeBProc.BookTime(new Employee{empId=100},DateTime.Today,8));
-        }
 
         [Fact]
         public void InvalidateDate()
