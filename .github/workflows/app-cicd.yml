@@ -25,11 +25,11 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-#     - name: Add dotnet package
-#       if: ${{ success() }}
-#       run: |
-#         find ./ -name *UT.csproj -execdir dotnet add package coverlet.msbuild \;
-#         find ./ -name *UT.csproj -execdir dotnet add package FluentAssertions \;
+    - name: Add dotnet package
+      if: ${{ success() }}
+      run: |
+        find ./ -name *UT.csproj -execdir dotnet add package coverlet.msbuild \;
+        find ./ -name *UT.csproj -execdir dotnet add package FluentAssertions \;
     - name: Test
       if: ${{ success() }}
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal
