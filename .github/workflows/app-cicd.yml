@@ -3,7 +3,8 @@ env:
   JFROG_URL: ${{ secrets.JFROG_URL }}
   JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }} 
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
-  JFROG_ARTIFACTORY_BUCKET: urmilag.jfrog.io/docker-local
+  JFROG_ARTIFACTORY: urmilag.jfrog.io/docker-local
+  JFROG_ARTIFACTORY_BUCKET: docker-local
 on:
   push:
     branches: [ develop, master ]
@@ -58,8 +59,8 @@ jobs:
       - name: Build docker image for develop
         run: |
           docker build . --file ./scripts/build/Dockerfile -t sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
-          docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY_BUCKET/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+          docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=false
-          jfrog rt dp $JFROG_ARTIFACTORY_BUCKET/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} docker-local 
+          jfrog rt dp $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY_BUCKET 
