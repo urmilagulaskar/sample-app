@@ -20,7 +20,7 @@ namespace TimeManagementBooking
             {
                 throw new ArgumentOutOfRangeException("Employee id cannot be 0");
             }
-
+            
             if(date.Date < DateTime.Today || date.Date > DateTime.Today)
             {
                 throw new ArgumentOutOfRangeException("You can book for today only.");
