@@ -15,6 +15,7 @@ namespace TimeManagementUT
             var timeBProc= new TimeBProcessor();
             Assert.Throws<ArgumentOutOfRangeException>(() => timeBProc.BookTime(new Employee(),DateTime.Today,8));
         }
+        
 
         [Fact]
         public void InvalidateDate()
