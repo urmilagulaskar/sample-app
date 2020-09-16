@@ -8,7 +8,7 @@ env:
 
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ develop, master, patch-review]
   pull_request:
     branches: [ develop, master ]
 jobs:
@@ -50,11 +50,11 @@ jobs:
   
   publish_docker_image:
     if: github.event_name == 'push' 
+    env:
+      CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          echo "::set-env name=CONTAINER_IMAGE::sample-app-${GITHUB_REF##*/}"
       - name: Set artifactory and bucket for master 
         if: github.ref == 'refs/heads/master'
         run: |
@@ -62,9 +62,8 @@ jobs:
           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
       - name: Build docker image for develop
         run: |
-          docker build . --file ./scripts/build/Dockerfile -t $CONTAINER_IMAGE:${GITHUB_SHA::8}
-          docker tag $CONTAINER_IMAGE:${GITHUB_SHA::8} $ARTIFACTORY/$CONTAINER_IMAGE:${GITHUB_SHA::8}
+          docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp $ARTIFACTORY/$CONTAINER_IMAGE:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+          jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
