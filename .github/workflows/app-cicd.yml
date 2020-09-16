@@ -16,7 +16,7 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-#    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request'
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -51,7 +51,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
-    needs: [build_and_test]
     if: github.event_name == 'push' 
     runs-on: ubuntu-latest
     steps:
@@ -59,13 +58,13 @@ jobs:
         if: github.ref == 'refs/heads/master'
         env:
           test_env: master_branch
+      - name: print env variable
+        run: echo $test_env
       - name: Build docker image for develop
         run: |
-          echo $test_env
           docker build . --file ./scripts/build/Dockerfile -t sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
           docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
-          echo $test_env
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=false
           jfrog rt dp $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY_BUCKET 
