@@ -5,7 +5,7 @@ env:
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
   ARTIFACTORY: urmilag.jfrog.io/docker-local
   ARTIFACTORY_BUCKET: docker-local
-  CONTAINER_IMAGE: sample-app-${{GITHUB_REF##*/}}
+  CONTAINER_IMAGE: sample-app-'${GITHUB_REF##*/}'
 on:
   push:
     branches: [ develop, master, feature/docker-image-name]
