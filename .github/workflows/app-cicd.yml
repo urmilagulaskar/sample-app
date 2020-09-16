@@ -5,9 +5,10 @@ env:
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
   JFROG_ARTIFACTORY: urmilag.jfrog.io/docker-local
   JFROG_ARTIFACTORY_BUCKET: docker-local
+  test_env: other_branch
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ develop, master, abstraction ]
   pull_request:
     branches: [ develop, master ]
 
@@ -54,11 +55,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        if: github.ref == 'refs/heads/master'
+        env:
+          test_env: master_branch
       - name: Build docker image for develop
         run: |
+          echo $test_env
           docker build . --file ./scripts/build/Dockerfile -t sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
           docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
+          echo $test_env
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=false
           jfrog rt dp $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY_BUCKET 
