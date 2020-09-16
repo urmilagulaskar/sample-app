@@ -16,7 +16,7 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+#    if: github.event_name == 'pull_request'
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -51,6 +51,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
+    needs: [build_and_test]
     if: github.event_name == 'push' 
     runs-on: ubuntu-latest
     steps:
