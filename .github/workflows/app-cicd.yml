@@ -55,13 +55,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set artifactory and bucket for master 
         if: github.ref == 'refs/heads/master'
-        env:
-          ARTIFACTORY: urmilag.jfrog.io/docker-qa  
-          ARTIFACTORY_BUCKET: docker-qa
-#        run: |
-#          echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
-#          echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
+        run: |
+          echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
+          echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
       - name: Build docker image for develop
+        id: build
         run: |
           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
         env:
@@ -69,4 +67,4 @@ jobs:
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+          jfrog rt dp ${{ steps.build.env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
