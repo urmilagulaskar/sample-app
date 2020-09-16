@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set artifactory and bucket for master 
-        if: github.ref == 'refs/heads/patch-review'
+        if: github.ref == 'refs/heads/master'
         env:
           ARTIFACTORY: urmilag.jfrog.io/docker-qa  
           ARTIFACTORY_BUCKET: docker-qa
