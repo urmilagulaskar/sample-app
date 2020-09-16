@@ -3,9 +3,9 @@ env:
   JFROG_URL: ${{ secrets.JFROG_URL }}
   JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }} 
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
-  JFROG_ARTIFACTORY: urmilag.jfrog.io/docker-local
-  JFROG_ARTIFACTORY_BUCKET: docker-local
-  test_env: other_branch
+  ARTIFACTORY: urmilag.jfrog.io/docker-local
+  ARTIFACTORY_BUCKET: docker-local
+
 on:
   push:
     branches: [ develop, master ]
@@ -55,16 +55,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set env variable
+      - name: Set artifactory and bucket for master 
         if: github.ref == 'refs/heads/master'
-        run: echo "::set-env name=test_env::master_branch" 
+        run: |
+          echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
+          echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
       - name: Build docker image for develop
         run: |
           echo $test_env
           docker build . --file ./scripts/build/Dockerfile -t sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
-          docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+          docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           echo $test_env
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=false
-          jfrog rt dp $JFROG_ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $JFROG_ARTIFACTORY_BUCKET 
+          jfrog rt dp $ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
