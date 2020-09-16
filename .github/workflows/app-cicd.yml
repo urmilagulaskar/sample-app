@@ -60,13 +60,13 @@ jobs:
         run: |
           echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
+          echo "::set-env name=CONTAINER_IMAGE::sample-app-${GITHUB_REF##*/}"
       - name: Build docker image for develop
         run: |
-          echo "::set-env name=CONTAINER_IMAGE::sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}"
           echo $CONTAINER_IMAGE
-          docker build . --file ./scripts/build/Dockerfile -t sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
-          docker tag sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8}
+          docker build . --file ./scripts/build/Dockerfile -t $CONTAINER_IMAGE:${GITHUB_SHA::8}
+          docker tag $CONTAINER_IMAGE:${GITHUB_SHA::8} $ARTIFACTORY/$CONTAINER_IMAGE:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp $ARTIFACTORY/sample-app-${GITHUB_REF##*/}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+          jfrog rt dp $ARTIFACTORY/$CONTAINER_IMAGE:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
