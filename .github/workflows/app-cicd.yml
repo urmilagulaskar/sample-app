@@ -53,14 +53,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: |
+          echo "::set-env name=CONTAINER_IMAGE::sample-app-${GITHUB_REF##*/}"
       - name: Set artifactory and bucket for master 
         if: github.ref == 'refs/heads/master'
         run: |
           echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
-      - name: set container image name
-        run: |
-          echo "::set-env name=CONTAINER_IMAGE::sample-app-${GITHUB_REF##*/}"
       - name: Build docker image for develop
         run: |
           echo $CONTAINER_IMAGE
