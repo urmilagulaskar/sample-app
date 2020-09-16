@@ -52,8 +52,6 @@ jobs:
   publish_docker_image:
     if: github.event_name == 'push' 
     runs-on: ubuntu-latest
-    env:
-      $CONTAINER_IMAGE: sample-app-${github_ref##*/}:${github_sha::8}
     steps:
       - uses: actions/checkout@v2
       - name: Build docker image for develop
