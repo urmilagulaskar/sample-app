@@ -5,14 +5,12 @@ env:
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
   ARTIFACTORY: urmilag.jfrog.io/docker-local
   ARTIFACTORY_BUCKET: docker-local
-  CONTAINER_IMAGE: sample-app-'${GITHUB_REF##*/}'
+
 on:
   push:
     branches: [ develop, master, feature/docker-image-name]
   pull_request:
     branches: [ develop, master ]
-
-
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
@@ -60,6 +58,9 @@ jobs:
         run: |
           echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
+      - name: set container image name
+        run: |
+          echo "::set-env name=CONTAINER_IMAGE::sample-app-${GITHUB_REF##*/}"
       - name: Build docker image for develop
         run: |
           echo $CONTAINER_IMAGE
