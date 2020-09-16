@@ -8,7 +8,7 @@ env:
   test_env: other_branch
 on:
   push:
-    branches: [ develop, master, abstraction ]
+    branches: [ develop, master ]
   pull_request:
     branches: [ develop, master ]
 
