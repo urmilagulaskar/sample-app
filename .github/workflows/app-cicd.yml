@@ -3,9 +3,6 @@ env:
   JFROG_URL: ${{ secrets.JFROG_URL }}
   JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }} 
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
-  ARTIFACTORY: urmilag.jfrog.io/docker-local
-  ARTIFACTORY_BUCKET: docker-local
-
 on:
   push:
     branches: [ develop, master, patch-review]
@@ -51,6 +48,8 @@ jobs:
     needs: [build_and_test]
     env:
       CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
+      ARTIFACTORY: urmilag.jfrog.io/docker-local
+      ARTIFACTORY_BUCKET: docker-local
     if: github.event_name == 'push' 
     runs-on: ubuntu-latest
     steps:
