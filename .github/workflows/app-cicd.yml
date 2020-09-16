@@ -8,7 +8,7 @@ env:
 
 on:
   push:
-    branches: [ develop, master, feature/docker-image-name]
+    branches: [ develop, master ]
   pull_request:
     branches: [ develop, master ]
 jobs:
@@ -62,7 +62,6 @@ jobs:
           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
       - name: Build docker image for develop
         run: |
-          echo $CONTAINER_IMAGE
           docker build . --file ./scripts/build/Dockerfile -t $CONTAINER_IMAGE:${GITHUB_SHA::8}
           docker tag $CONTAINER_IMAGE:${GITHUB_SHA::8} $ARTIFACTORY/$CONTAINER_IMAGE:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
