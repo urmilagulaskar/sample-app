@@ -14,7 +14,6 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -49,20 +48,24 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
+    needs: [build_and_test]
     if: github.event_name == 'push' 
-    env:
-      CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set artifactory and bucket for master 
-        if: github.ref == 'refs/heads/master'
-        run: |
-          echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
-          echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
+        if: github.ref == 'refs/heads/patch-review'
+        env:
+          ARTIFACTORY: urmilag.jfrog.io/docker-qa  
+          ARTIFACTORY_BUCKET: docker-qa
+#        run: |
+#          echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
+#          echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
       - name: Build docker image for develop
         run: |
           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
+        env:
+          CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
