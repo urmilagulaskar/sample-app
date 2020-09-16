@@ -53,6 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        env:
+          CONTAINER_IMAGE: sample-app-${GITHUB_REF##*/}
       - name: Set artifactory and bucket for master 
         if: github.ref == 'refs/heads/master'
         run: |
@@ -61,10 +63,8 @@ jobs:
       - name: Build docker image for develop
         id: build
         run: |
-          docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
-        env:
-          CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
+          docker build . --file ./scripts/build/Dockerfile -t $ARTIFACTORY/${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
       - uses: jfrog/setup-jfrog-cli@v1
       - run: |
           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp ${{ steps.build.env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+          jfrog rt dp $ARTIFACTORY/${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
