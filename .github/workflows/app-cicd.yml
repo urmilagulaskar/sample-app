@@ -5,7 +5,7 @@ env:
   JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ develop, master, access-token ]
   pull_request:
     branches: [ develop, master ]
 jobs:
