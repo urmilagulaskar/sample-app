@@ -63,7 +63,16 @@ jobs:
         id: build
         run: |
           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
+            - name: Setup Jfrog CLI
       - uses: jfrog/setup-jfrog-cli@v1
-      - run: |
-          jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+        with:
+          VERSION: 1.39.2
+        env:
+          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_1 }}
+      - name: ping to jfrog cli
+        run: |
+          jfrog rt ping
+#       - uses: jfrog/setup-jfrog-cli@v1
+#       - run: |
+#           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
+#           jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
