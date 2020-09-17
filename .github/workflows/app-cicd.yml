@@ -64,7 +64,7 @@ jobs:
         with:
           VERSION: 1.39.3
         env:
-          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_TOKEN }}
+          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_1 }}
       - name: Ping to jfrog cli
         run: |
           jfrog rt ping
