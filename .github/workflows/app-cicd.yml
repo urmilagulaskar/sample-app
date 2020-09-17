@@ -63,13 +63,13 @@ jobs:
         id: build
         run: |
           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
-            - name: Setup Jfrog CLI
+      - name: Setup Jfrog CLI
       - uses: jfrog/setup-jfrog-cli@v1
         with:
           VERSION: 1.39.2
         env:
           JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_1 }}
-      - name: ping to jfrog cli
+      - name: Ping to jfrog cli
         run: |
           jfrog rt ping
 #       - uses: jfrog/setup-jfrog-cli@v1
