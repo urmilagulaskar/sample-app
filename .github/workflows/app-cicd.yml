@@ -63,7 +63,13 @@ jobs:
         id: build
         run: |
           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
-      - uses: jfrog/setup-jfrog-cli@v1
-      - run: |
-          jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+      - name: Setup Jfrog CLI
+        uses: jfrog/setup-jfrog-cli@v1
+        with:
+          VERSION: 1.39.3
+        env:
+          JF_ARTIFACTORY_2: ${{ secrets.JF_ARTIFACTORY_1 }} 
+          JF_ARTIFACTORY_1: eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiItTzNDakNFREp4bzRwR3dnQk1TWkFpRnh3M1dmdFVuVTJncTNQdWpfRkZVIn0.eyJzdWIiOiJqZnJ0QDAxZWhwYXo1Ym15Y2JwMWd4NW5nOTUwdDJrXC91c2Vyc1wvY2ljZCIsInNjcCI6ImFwaToqIG1lbWJlci1vZi1ncm91cHM6cmVhZGVycyIsImF1ZCI6ImpmcnRAMDFlaHBhejVibXljYnAxZ3g1bmc5NTB0MmsiLCJpc3MiOiJqZnJ0QDAxZWhwYXo1Ym15Y2JwMWd4NW5nOTUwdDJrXC91c2Vyc1wvdXJtaWxhZ3VsYXNrYXI4OUBnbWFpbC5jb20iLCJleHAiOjE2MDA3Njc2MDQsImlhdCI6MTYwMDc2NDAwNCwianRpIjoiYzJmZTUwYWYtNzQ1YS00OGRiLTk4M2MtMDRkODQ4ZDkzYmMyIn0.WW6V7Gi4gsu43ITspYXQsNZv34hw0YrGbFq3yP1HuoG11eZrgBWvvCrNA_Os5QmhsKLsWdhhZ2If9Qd9EKjcL9w9EoVGSOgk0_62BpgvbZwOXyjANrt8JBecbv2F-kvcvN70Ax0GF_2miCfMrkSwDdxhFX6IK-59kfTKIMEW0rATztEaQ_MNwMD_8UxhzUXe6BEU4UEsnpVuKrB8t2kVGkpkeKMXhrqUZXtuSGVpUiP3n6qhtLPWjLtMFakSgnZEEomlpfjtmWzlHXbViGwLvMRl_bdEF1gcVVt5VViY5GRbI5esNGAITBYd8rtw9KjV7bTc43a-YH8gho4zpuzEpg
+        run: |
+          curl -uurmilagulaskar89@gmail.com:${{ env.JF_ARTIFACTORY_1 }} https://urmilag.jfrog.io/router/api/v1/system/ping
+          jfrog rt ping 
