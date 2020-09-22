@@ -68,6 +68,7 @@ jobs:
       - name: Ping to jfrog cli
         run: |
           jfrog rt ping
+
 #       - uses: jfrog/setup-jfrog-cli@v1
 #       - run: |
 #           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
