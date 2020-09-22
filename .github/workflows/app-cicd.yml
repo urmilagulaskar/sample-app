@@ -63,6 +63,3 @@ jobs:
         id: build
         run: |
           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
-      - uses: jfrog/setup-jfrog-cli@v1
-        with:
-          VERSION: 1.39.3
