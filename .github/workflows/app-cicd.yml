@@ -1,8 +1,6 @@
 name: Application CI
 env:
   JFROG_URL: ${{ secrets.JFROG_URL }}
-  JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }} 
-  JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
 on:
   push:
     branches: [ develop, master, patch1-mbradley ]
