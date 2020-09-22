@@ -7,6 +7,7 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -22,23 +23,23 @@ jobs:
       if: ${{ success() }}
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal
     
-    - name: Generate report
-      if: ${{ success() }}
-      run: |
-        dotnet tool install -g dotnet-reportgenerator-globaltool 
-        ~/.dotnet/tools/reportgenerator "-reports:./TimeManagementUT/coverage.opencover.xml" "-targetdir:./CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
+#     - name: Generate report
+#       if: ${{ success() }}
+#       run: |
+#         dotnet tool install -g dotnet-reportgenerator-globaltool 
+#         ~/.dotnet/tools/reportgenerator "-reports:./TimeManagementUT/coverage.opencover.xml" "-targetdir:./CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
     
-    - name: code analysis using sonar cloud
-      if: ${{ success() }}
-      run: |
-        dotnet tool install --global dotnet-sonarscanner 
-        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal
-        dotnet build-server shutdown
-        dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT_KEY }} /o:${{ secrets.SONAR_ORG_KEY }} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="./TimeManagementUT/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="./TimeManagementUT/TestResults/*.trx"
-        dotnet build ./xunit_practice_two.sln
-        dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     - name: code analysis using sonar cloud
+#       if: ${{ success() }}
+#       run: |
+#         dotnet tool install --global dotnet-sonarscanner 
+#         dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal
+#         dotnet build-server shutdown
+#         dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT_KEY }} /o:${{ secrets.SONAR_ORG_KEY }} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="./TimeManagementUT/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="./TimeManagementUT/TestResults/*.trx"
+#         dotnet build ./xunit_practice_two.sln
+#         dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
   publish_docker_image:
     needs: [build_and_test]
@@ -64,9 +65,11 @@ jobs:
         with:
           VERSION: 1.39.3
         env:
-          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_1 }}
+          JF_ARTIFACTORY_2: ${{ secrets.JF_ARTIFACTORY_1 }} 
+          JF_ARTIFACTORY_1: eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiItTzNDakNFREp4bzRwR3dnQk1TWkFpRnh3M1dmdFVuVTJncTNQdWpfRkZVIn0.eyJzdWIiOiJqZnJ0QDAxZWhwYXo1Ym15Y2JwMWd4NW5nOTUwdDJrXC91c2Vyc1wvY2ljZCIsInNjcCI6ImFwaToqIG1lbWJlci1vZi1ncm91cHM6cmVhZGVycyIsImF1ZCI6ImpmcnRAMDFlaHBhejVibXljYnAxZ3g1bmc5NTB0MmsiLCJpc3MiOiJqZnJ0QDAxZWhwYXo1Ym15Y2JwMWd4NW5nOTUwdDJrXC91c2Vyc1wvdXJtaWxhZ3VsYXNrYXI4OUBnbWFpbC5jb20iLCJleHAiOjE2MDA3Njc2MDQsImlhdCI6MTYwMDc2NDAwNCwianRpIjoiYzJmZTUwYWYtNzQ1YS00OGRiLTk4M2MtMDRkODQ4ZDkzYmMyIn0.WW6V7Gi4gsu43ITspYXQsNZv34hw0YrGbFq3yP1HuoG11eZrgBWvvCrNA_Os5QmhsKLsWdhhZ2If9Qd9EKjcL9w9EoVGSOgk0_62BpgvbZwOXyjANrt8JBecbv2F-kvcvN70Ax0GF_2miCfMrkSwDdxhFX6IK-59kfTKIMEW0rATztEaQ_MNwMD_8UxhzUXe6BEU4UEsnpVuKrB8t2kVGkpkeKMXhrqUZXtuSGVpUiP3n6qhtLPWjLtMFakSgnZEEomlpfjtmWzlHXbViGwLvMRl_bdEF1gcVVt5VViY5GRbI5esNGAITBYd8rtw9KjV7bTc43a-YH8gho4zpuzEpg
       - name: Ping to jfrog cli
         run: |
+          curl -uurmilagulaskar89@gmail.com:${{ env.JF_ARTIFACTORY_1 }} https://urmilag.jfrog.io/router/api/v1/system/ping
           jfrog rt ping
 
 #       - uses: jfrog/setup-jfrog-cli@v1
