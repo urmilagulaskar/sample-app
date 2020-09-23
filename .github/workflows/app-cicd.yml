@@ -1,8 +1,4 @@
 name: Application CI
-env:
-  JFROG_URL: ${{ secrets.JFROG_URL }}
-  JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }} 
-  JFROG_API_KEY : ${{ secrets.JFROG_API_KEY }}
 on:
   push:
     branches: [ develop, master, patch2 ]
@@ -44,26 +40,26 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
-  publish_docker_image:
-    needs: [build_and_test]
-    env:
-      CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
-      ARTIFACTORY: urmilag.jfrog.io/docker-local
-      ARTIFACTORY_BUCKET: docker-local
-    if: github.event_name == 'push' 
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set artifactory and bucket for master 
-        if: github.ref == 'refs/heads/master'
-        run: |
-          echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
-          echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
-      - name: Build docker image for develop
-        id: build
-        run: |
-          docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
-      - uses: jfrog/setup-jfrog-cli@v1
-      - run: |
-          jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
-          jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
+#   publish_docker_image:
+#     needs: [build_and_test]
+#     env:
+#       CONTAINER_IMAGE: $ARTIFACTORY/sample-app-${GITHUB_REF##*/}
+#       ARTIFACTORY: urmilag.jfrog.io/docker-local
+#       ARTIFACTORY_BUCKET: docker-local
+#     if: github.event_name == 'push' 
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Set artifactory and bucket for master 
+#         if: github.ref == 'refs/heads/master'
+#         run: |
+#           echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
+#           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
+#       - name: Build docker image for develop
+#         id: build
+#         run: |
+#           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
+#       - uses: jfrog/setup-jfrog-cli@v1
+#       - run: |
+#           jfrog rt c artifactory --url=$JFROG_URL --user=$JFROG_USERNAME --apikey=$JFROG_API_KEY --enc-password=true --interactive=false
+#           jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET 
