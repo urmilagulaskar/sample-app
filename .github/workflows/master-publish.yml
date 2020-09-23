@@ -1,0 +1,8 @@
+name: Publish from master
+on:
+  push: [master, patch2]
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
