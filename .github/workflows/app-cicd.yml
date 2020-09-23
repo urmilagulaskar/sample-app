@@ -1,7 +1,5 @@
 name: Application CI
 on:
-  push:
-    branches: [ develop, master, patch2 ]
   pull_request:
     branches: [ develop, master ]
 jobs:
