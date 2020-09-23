@@ -56,10 +56,10 @@ jobs:
         run: |
           echo "::set-env name=ARTIFACTORY::urmilag.jfrog.io/docker-qa" 
           echo "::set-env name=ARTIFACTORY_BUCKET::docker-qa" 
-#       - name: Build docker image for develop
-#         id: build
-#         run: |
-#           docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
+      - name: Build docker image for develop
+        id: build
+        run: |
+          docker build . --file ./scripts/build/Dockerfile -t ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8}
       - name: Setup Jfrog CLI
         uses: jfrog/setup-jfrog-cli@v1
         with:
@@ -69,6 +69,8 @@ jobs:
       - name: Ping to jfrog cli
         run: |
           jfrog rt ping
+      - run: |
+          jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET
 
 #       - uses: jfrog/setup-jfrog-cli@v1
 #       - run: |
