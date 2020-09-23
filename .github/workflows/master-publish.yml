@@ -5,7 +5,7 @@ env:
   CONTAINER_IMAGE: $ARTIFACTORY/sample-app-master
 on:
   push: 
-    branches: [master, patch2]
+    branches: [master]
 jobs:
   publish-docker-image:
     runs-on: ubuntu-latest
