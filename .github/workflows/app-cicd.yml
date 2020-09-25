@@ -2,6 +2,8 @@ name: Application CI
 on:
   pull_request:
     branches: [ develop, master ]
+  push:
+    branches: [sonar]
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
@@ -32,7 +34,7 @@ jobs:
         dotnet tool install --global dotnet-sonarscanner 
         dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal
         dotnet build-server shutdown
-        dotnet sonarscanner begin /k:${{ secrets.SONAR_PROJECT_KEY }} /o:${{ secrets.SONAR_ORG_KEY }} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="./TimeManagementUT/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="./TimeManagementUT/TestResults/*.trx"
+        dotnet sonarscanner begin /k:"common-project" /o:${{ secrets.SONAR_ORG_KEY }} /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=${{ secrets.SONAR_TOKEN }} /d:sonar.cs.opencover.reportsPaths="./TimeManagementUT/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="./TimeManagementUT/TestResults/*.trx"
         dotnet build ./xunit_practice_two.sln
         dotnet sonarscanner end /d:sonar.login=${{ secrets.SONAR_TOKEN }}
       env:
