@@ -1,7 +1,6 @@
 name: Publish from develop
 env:
   ARTIFACTORY: urmilag.jfrog.io/docker-local
-  ARTIFACTORY_BUCKET: docker-local
   CONTAINER_IMAGE: $ARTIFACTORY/sample-app-develop
 on:
   push: 
@@ -26,3 +25,6 @@ jobs:
         jfrog rt ping
     - name: Publish docker image
       run: jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} $ARTIFACTORY_BUCKET
+      env:
+        ARTIFACTORY_BUCKET: docker-local
+    
