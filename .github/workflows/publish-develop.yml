@@ -26,4 +26,4 @@ jobs:
       run: |
         jfrog rt ping
     - name: Publish docker image
-      run: jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} ${{ env.ARTIFACTORY_BUCKET }}/service/test   
+      run: jfrog rt dp ${{ env.CONTAINER_IMAGE }}:${GITHUB_SHA::8} ${{ env.ARTIFACTORY_BUCKET }}service/test   
