@@ -1,6 +1,6 @@
 name: Publish from develop
 env:
-  ARTIFACTORY: urmilag.jfrog.io/docker-local
+  ARTIFACTORY: urmilag.jfrog.io/docker-local/service/test/
   CONTAINER_IMAGE: $ARTIFACTORY/sample-app-develop
 on:
   push: 
@@ -8,7 +8,7 @@ on:
 jobs:
   publish-docker-image:
     env:
-      ARTIFACTORY_BUCKET: docker-local/service/test
+      ARTIFACTORY_BUCKET: docker-local
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
