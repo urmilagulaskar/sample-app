@@ -4,11 +4,11 @@ env:
   CONTAINER_IMAGE: $ARTIFACTORY/sample-app-develop
 on:
   push: 
-    branches: [develop]
+    branches: [develop,dockerpush]
 jobs:
   publish-docker-image:
     env:
-      ARTIFACTORY_BUCKET: docker-local
+      ARTIFACTORY_BUCKET: docker-local/service/test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
