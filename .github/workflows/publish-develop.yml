@@ -1,7 +1,7 @@
 name: Publish from develop
 env:
-  ARTIFACTORY: urmilag.jfrog.io/docker-local/service/test/
-  CONTAINER_IMAGE: $ARTIFACTORY/sample-app-develop
+  ARTIFACTORY: urmilag.jfrog.io/docker-local/
+  CONTAINER_IMAGE: $ARTIFACTORY/service/test/sample-app
 on:
   push: 
     branches: [develop,dockerpush]
