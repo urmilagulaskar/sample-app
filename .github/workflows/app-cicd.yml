@@ -1,7 +1,7 @@
 name: Application CI
 on:
   push:
-    branches: [ develop, master, access-token ]
+    branches: [ develop, master, access-token, feature/* ]
   pull_request:
     branches: [ develop, master ]
 jobs:
@@ -10,6 +10,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        echo ${GITHUB_REF##*/}
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -51,8 +53,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          echo ${GITHUB_REF##*/}
       - name: Set artifactory and bucket for master 
         if: github.ref == 'refs/heads/master'
         run: |
