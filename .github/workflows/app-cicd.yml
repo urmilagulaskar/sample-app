@@ -13,7 +13,7 @@ jobs:
     - run: |
         echo ${GITHUB_REF##}
     - name: verify
-      if: contains(github.ref, '/feature') || contains(github.ref, '/task')
+      if: contains(github.ref, '/task')
       run: |
         echo ${GITHUB_REF##} 
     - name: Setup .NET Core
