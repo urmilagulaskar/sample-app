@@ -20,7 +20,7 @@ jobs:
       if: ${{ success() }}
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx --no-restore --verbosity normal
     
-    - name: Generate report
+    - name: Generate report for UT Coverage
       if: ${{ success() }}
       run: |
         dotnet tool install -g dotnet-reportgenerator-globaltool 
